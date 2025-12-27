@@ -1,6 +1,8 @@
 # TBC Offers Manager - Chrome Extension
 
-A Chrome extension for managing offers on [tbcconcept.ge](https://tbcconcept.ge) with transparency toggle and auto-load functionality.
+A Chrome extension for managing offers on [TBC Bank](https://tbcbank.ge) and [TBC Concept](https://tbcconcept.ge) with transparency toggle and auto-load functionality.
+
+**[📥 Install from Chrome Web Store](https://chromewebstore.google.com/detail/tbc-offers-manager/iajjfpbldpfodgbincholpgbcocckeie)**
 
 ## Features
 
@@ -31,30 +33,36 @@ A Chrome extension for managing offers on [tbcconcept.ge](https://tbcconcept.ge)
 
 ## Installation
 
+### Option 1: Install from Chrome Web Store (Recommended)
+
+**[📥 Install TBC Offers Manager](https://chromewebstore.google.com/detail/tbc-offers-manager/iajjfpbldpfodgbincholpgbcocckeie)**
+
+Simply click the link above and click "Add to Chrome" to install the extension.
+
+### Option 2: Install from Source (Development)
+
 1. **Download/Clone the Extension**
    ```bash
-   cd /home/user/homedev/tbc-offers/extension
+   cd tbc-offers/extension
    ```
 
-2. **Create Extension Icons**
-   Since the extension needs icons, you'll need to add PNG files to the `icons/` directory:
-   - `icon16.png` (16x16 pixels)
-   - `icon48.png` (48x48 pixels)
-   - `icon128.png` (128x128 pixels)
+2. **Icons are Already Included**
+   The extension includes pre-generated icons in the `icons/` directory.
 
 3. **Load Extension in Chrome**
    - Open Chrome and navigate to `chrome://extensions/`
    - Enable "Developer mode" (toggle in top-right)
    - Click "Load unpacked"
-   - Select the `/home/user/homedev/tbc-offers/extension` directory
+   - Select the `tbc-offers/extension` directory
 
 ## Usage
 
 ### Hiding Offers
-1. Visit https://tbcconcept.ge/en/offers?segment=Concept&page=1&filters=Category%21NewYearOffers
+1. Visit https://tbcbank.ge/en/offers/all-offers or https://tbcconcept.ge/en/offers
 2. Each offer card will have an eye icon in the top-right corner
 3. Click the eye icon to toggle transparency (hidden/visible)
 4. Hidden offers will be at 85% transparency (unless hovered)
+5. Hidden offers work across all languages (en, ka, etc.) and both websites
 
 ### Auto-Loading All Offers
 1. Click the "Auto-Load All Offers" button in the bottom-right corner
@@ -74,21 +82,26 @@ A Chrome extension for managing offers on [tbcconcept.ge](https://tbcconcept.ge)
 
 ## Technical Details
 
+### Supported Websites
+- **TBC Bank**: `https://tbcbank.ge/*/offers*`
+- **TBC Concept**: `https://tbcconcept.ge/*/offers*`
+- Works on all language versions (en, ka, etc.)
+
 ### Storage
 - Uses Chrome's `chrome.storage.sync` API
 - Data syncs across Chrome browsers when signed in
 - Storage key: `tbc_hidden_offers`
-- Stores array of offer URLs
+- Stores normalized offer identifiers (not full URLs)
 
 ### Content Script Matching
-- Matches: `https://tbcconcept.ge/*/offers*`
+- Matches: `https://tbcconcept.ge/*/offers*` and `https://tbcbank.ge/*/offers*`
 - Runs at: `document_end`
 - Observes DOM for dynamically loaded offers
 
 ### Permissions
 - `storage`: For saving hidden offers
 - `activeTab`: For accessing the current tab
-- `https://tbcconcept.ge/*`: Host permission for content script injection
+- `https://tbcconcept.ge/*` and `https://tbcbank.ge/*`: Host permissions for content script injection
 
 ## Browser Compatibility
 
@@ -103,6 +116,12 @@ This extension is provided as-is for personal use.
 
 ## Support
 
-For issues or questions, please create an issue in the repository.
+For issues or questions, please:
+- Create an issue in the repository
+- Leave a review on the [Chrome Web Store](https://chromewebstore.google.com/detail/tbc-offers-manager/iajjfpbldpfodgbincholpgbcocckeie)
+
+---
+
+**[📥 Get the Extension](https://chromewebstore.google.com/detail/tbc-offers-manager/iajjfpbldpfodgbincholpgbcocckeie)** | [Privacy Policy](PRIVACY_POLICY.md)
 
 
