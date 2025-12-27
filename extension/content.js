@@ -52,6 +52,21 @@ function normalizeOfferUrl(url) {
   return url; // Return original if pattern doesn't match
 }
 
+// Check if offer has ended
+function isOfferEnded(offerLink) {
+  const card = offerLink.querySelector('tbcx-pw-card');
+  if (!card) return false;
+
+  // Look for "Ended" text in the card
+  const textElements = card.querySelectorAll('.tbcx-pw-card__text-with-icon-info');
+  for (const element of textElements) {
+    if (element.textContent.trim().toLowerCase() === 'ended') {
+      return true;
+    }
+  }
+  return false;
+}
+
 // Add eye icon to offer cards
 function addEyeIcon(offerLink) {
   // Check if icon already exists
@@ -67,13 +82,21 @@ function addEyeIcon(offerLink) {
   const normalizedUrl = normalizeOfferUrl(offerUrl);
   if (!normalizedUrl) return;
 
+  // Check if offer has ended - auto-hide ended offers
+  const hasEnded = isOfferEnded(offerLink);
+  let isHidden = hiddenOffers.has(normalizedUrl);
+
+  // Auto-hide ended offers if not already in storage
+  if (hasEnded && !hiddenOffers.has(normalizedUrl)) {
+    isHidden = true;
+  }
+
   // Create the eye icon container
   const iconContainer = document.createElement('div');
   iconContainer.className = 'tbc-offer-toggle-icon';
   iconContainer.title = 'Toggle offer visibility';
 
   // Create the eye icon (SVG)
-  const isHidden = hiddenOffers.has(normalizedUrl);
   iconContainer.innerHTML = getEyeIconSVG(isHidden);
 
   // Apply hidden state if needed
