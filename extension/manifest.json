@@ -1,18 +1,22 @@
 {
   "manifest_version": 3,
   "name": "TBC Offers Manager",
-  "version": "1.0.0",
-  "description": "Manage and hide TBC Concept offers with transparency toggle",
+  "version": "1.1.0",
+  "description": "Manage and hide TBC Bank & Concept offers with transparency toggle",
   "permissions": [
     "storage",
     "activeTab"
   ],
   "host_permissions": [
-    "https://tbcconcept.ge/*"
+    "https://tbcconcept.ge/*",
+    "https://tbcbank.ge/*"
   ],
   "content_scripts": [
     {
-      "matches": ["https://tbcconcept.ge/*/offers*"],
+      "matches": [
+        "https://tbcconcept.ge/*/offers*",
+        "https://tbcbank.ge/*/offers*"
+      ],
       "js": ["content.js"],
       "css": ["content.css"],
       "run_at": "document_end"

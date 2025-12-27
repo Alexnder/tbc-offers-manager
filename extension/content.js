@@ -32,6 +32,26 @@ async function saveHiddenOffers() {
   });
 }
 
+// Normalize offer URL by removing language prefix and page-specific paths
+function normalizeOfferUrl(url) {
+  if (!url) return null;
+
+  // Remove language prefix (en, ka, etc.) and page paths (offers, all-offers)
+  // Examples:
+  // /en/offers/5xrD86h/name -> /5xrD86h/name
+  // /ka/offers/all-offers/5xrD86h/name -> /5xrD86h/name
+  // /en/offers/all-offers/5xrD86h/name -> /5xrD86h/name
+
+  // Match pattern: /[lang]/offers(/all-offers)?/[id]/[name]
+  // Extract just: /[id]/[name]
+  const match = url.match(/\/[a-z]{2}\/offers(?:\/all-offers)?\/(.*)/);
+  if (match) {
+    return '/' + match[1]; // Return /[id]/[name]
+  }
+
+  return url; // Return original if pattern doesn't match
+}
+
 // Add eye icon to offer cards
 function addEyeIcon(offerLink) {
   // Check if icon already exists
@@ -43,13 +63,17 @@ function addEyeIcon(offerLink) {
   const offerUrl = offerLink.getAttribute('href');
   if (!offerUrl || !offerUrl.includes('/offers/')) return;
 
+  // Normalize the URL before checking storage
+  const normalizedUrl = normalizeOfferUrl(offerUrl);
+  if (!normalizedUrl) return;
+
   // Create the eye icon container
   const iconContainer = document.createElement('div');
   iconContainer.className = 'tbc-offer-toggle-icon';
   iconContainer.title = 'Toggle offer visibility';
 
   // Create the eye icon (SVG)
-  const isHidden = hiddenOffers.has(offerUrl);
+  const isHidden = hiddenOffers.has(normalizedUrl);
   iconContainer.innerHTML = getEyeIconSVG(isHidden);
 
   // Apply hidden state if needed
@@ -61,7 +85,7 @@ function addEyeIcon(offerLink) {
   iconContainer.addEventListener('click', (e) => {
     e.preventDefault();
     e.stopPropagation();
-    toggleOfferVisibility(offerLink, offerUrl, iconContainer);
+    toggleOfferVisibility(offerLink, normalizedUrl, iconContainer);
   });
 
   // Find the card element inside the link and append icon
@@ -268,9 +292,10 @@ chrome.storage.onChanged.addListener(async (changes, namespace) => {
       if (!offer.querySelector('tbcx-pw-card')) return; // Skip non-card links
 
       const offerUrl = offer.getAttribute('href');
+      const normalizedUrl = normalizeOfferUrl(offerUrl);
       const iconContainer = offer.querySelector('.tbc-offer-toggle-icon');
 
-      if (hiddenOffers.has(offerUrl)) {
+      if (hiddenOffers.has(normalizedUrl)) {
         applyHiddenState(offer);
         if (iconContainer) {
           iconContainer.innerHTML = getEyeIconSVG(true);

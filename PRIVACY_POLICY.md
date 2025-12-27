@@ -1,10 +1,10 @@
 # Privacy Policy for TBC Offers Manager
 
-**Last Updated: December 26, 2025**
+**Last Updated: December 27, 2025**
 
 ## Overview
 
-TBC Offers Manager is a Chrome browser extension that helps you manage and organize offers on tbcconcept.ge by allowing you to hide offers with transparency and auto-load all available offers.
+TBC Offers Manager is a Chrome browser extension that helps you manage and organize offers on TBC Bank (tbcbank.ge) and TBC Concept (tbcconcept.ge) websites by allowing you to hide offers with transparency and auto-load all available offers.
 
 ## Data Collection
 
@@ -14,7 +14,9 @@ TBC Offers Manager is a Chrome browser extension that helps you manage and organ
 
 The extension stores only the following information **locally on your device**:
 
-- **Hidden Offer URLs**: A list of offer page URLs that you have chosen to hide (e.g., `/en/offers/xyz/offer-name`)
+- **Hidden Offer URLs**: A list of normalized offer identifiers that you have chosen to hide (e.g., `/xyz/offer-name`)
+  - URLs are normalized to work across different languages (en, ka, etc.) and page variations
+  - Only the unique offer identifier is stored, not the full URL path
 
 ### Where Data is Stored
 
@@ -44,10 +46,11 @@ The extension requires the following permissions:
 **Purpose**: To save your list of hidden offers so they persist after closing your browser.
 
 ### `activeTab`
-**Purpose**: To interact with the current tbcconcept.ge offers page and add functionality (eye icons, auto-load button).
+**Purpose**: To interact with the current TBC Bank or TBC Concept offers pages and add functionality (eye icons, auto-load button).
 
-### Host Permission: `https://tbcconcept.ge/*`
-**Purpose**: To inject the extension's features only on TBC Concept website pages.
+### Host Permissions
+**`https://tbcconcept.ge/*`** and **`https://tbcbank.ge/*`**
+**Purpose**: To inject the extension's features only on TBC Bank and TBC Concept website pages. The extension only activates on offers pages (`/*/offers*` URL pattern).
 
 ## Third-Party Services
 
