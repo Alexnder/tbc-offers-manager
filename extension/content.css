@@ -30,6 +30,33 @@
   height: 24px;
 }
 
+/* Category toggle icon (small eye in badges) */
+.tbc-category-toggle-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: 4px;
+  padding: 2px;
+  border-radius: 3px;
+  transition: all 0.2s ease;
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+
+.tbc-category-toggle-icon:hover {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.1);
+  transform: scale(1.1);
+}
+
+.tbc-category-toggle-icon svg {
+  display: block;
+  width: 14px;
+  height: 14px;
+  color: currentColor;
+}
+
 /* Hidden offer state */
 .tbc-offer-hidden {
   opacity: 0.15 !important;

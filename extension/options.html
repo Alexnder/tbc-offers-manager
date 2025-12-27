@@ -29,9 +29,24 @@
       </section>
 
       <section class="card">
+        <h2>Hidden Categories</h2>
+        <p class="description">
+          Categories that are currently hidden. Click the small eye icon on any category badge to toggle visibility.
+        </p>
+
+        <div class="hidden-offers-list" id="hiddenCategoriesList">
+          <p class="empty-state">No hidden categories yet</p>
+        </div>
+
+        <button id="clearCategoriesBtn" class="btn btn-danger" style="margin-top: 15px;">
+          Clear All Hidden Categories
+        </button>
+      </section>
+
+      <section class="card">
         <h2>Import / Export</h2>
         <p class="description">
-          Export your hidden offers to backup or share with another browser.
+          Export your hidden offers and categories to backup or share with another browser.
           Import to restore from a backup.
         </p>
 
@@ -72,6 +87,7 @@
     <div class="notification" id="notification"></div>
   </div>
 
+  <script src="storage-utils.js"></script>
   <script src="options.js"></script>
 </body>
 </html>

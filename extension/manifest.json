@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "TBC Offers Manager",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "description": "Manage and hide TBC Bank & Concept offers with transparency toggle",
   "permissions": [
     "storage",
@@ -17,7 +17,7 @@
         "https://tbcconcept.ge/*/offers*",
         "https://tbcbank.ge/*/offers*"
       ],
-      "js": ["content.js"],
+      "js": ["storage-utils.js", "content.js"],
       "css": ["content.css"],
       "run_at": "document_end"
     }
