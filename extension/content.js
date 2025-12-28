@@ -468,10 +468,16 @@ function removeControlButton() {
 }
 
 // Add auto-load button
-function addControlButton() {
+async function addControlButton() {
   // Check if button already exists
   if (document.querySelector('.tbc-auto-load-btn')) {
     return;
+  }
+
+  // Check if user wants to show the button (from local storage)
+  const showButton = await loadLocalSetting(SHOW_AUTOLOAD_BUTTON_KEY, true);
+  if (!showButton) {
+    return; // User disabled the button
   }
 
   // Only show button on offers pages with more than 6 offers
@@ -640,6 +646,22 @@ chrome.storage.onChanged.addListener(async (changes, namespace) => {
     // Update all offers with new data
     if (offersChanged || categoriesChanged) {
       updateAllOffersVisibility();
+    }
+  }
+
+  if (namespace === 'local') {
+    // Handle auto-load button visibility setting change (local storage)
+    const autoLoadButtonSettingChanged = changes[SHOW_AUTOLOAD_BUTTON_KEY];
+
+    if (autoLoadButtonSettingChanged) {
+      const showButton = autoLoadButtonSettingChanged.newValue;
+      if (!showButton) {
+        // Hide button
+        removeControlButton();
+      } else {
+        // Show button (if conditions met)
+        await addControlButton();
+      }
     }
   }
 });

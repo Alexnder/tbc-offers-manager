@@ -9,6 +9,7 @@ const importBtn = document.getElementById('importBtn');
 const importFile = document.getElementById('importFile');
 const clearBtn = document.getElementById('clearBtn');
 const clearCategoriesBtn = document.getElementById('clearCategoriesBtn');
+const showAutoLoadBtnCheckbox = document.getElementById('showAutoLoadBtn');
 const notification = document.getElementById('notification');
 
 // Load and display hidden offers
@@ -64,6 +65,10 @@ async function updateUI() {
       btn.addEventListener('click', () => removeCategory(btn.dataset.category));
     });
   }
+
+  // Update settings
+  const showAutoLoadButton = await loadLocalSetting(SHOW_AUTOLOAD_BUTTON_KEY, true);
+  showAutoLoadBtnCheckbox.checked = showAutoLoadButton;
 }
 
 // Remove a single offer
@@ -192,6 +197,12 @@ clearBtn.addEventListener('click', clearAllOffers);
 if (clearCategoriesBtn) {
   clearCategoriesBtn.addEventListener('click', clearAllCategories);
 }
+
+// Settings event listeners
+showAutoLoadBtnCheckbox.addEventListener('change', async (e) => {
+  await saveLocalSetting(SHOW_AUTOLOAD_BUTTON_KEY, e.target.checked);
+  showNotification(`Auto-Load button ${e.target.checked ? 'enabled' : 'disabled'}`, false);
+});
 
 // Initialize
 updateUI();

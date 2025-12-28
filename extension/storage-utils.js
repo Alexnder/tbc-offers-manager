@@ -3,6 +3,7 @@
 
 const STORAGE_KEY = 'tbc_hidden_offers';
 const HIDDEN_CATEGORIES_KEY = 'tbc_hidden_categories';
+const SHOW_AUTOLOAD_BUTTON_KEY = 'tbc_show_autoload_button';
 const MAX_CHUNK_BYTES = 7500; // Stay safely under 8KB (8,192 bytes)
 
 // Calculate byte size of a string (UTF-8)
@@ -165,6 +166,22 @@ async function loadSimpleData(key) {
 async function saveSimpleData(key, data) {
   return new Promise((resolve) => {
     chrome.storage.sync.set({ [key]: data }, resolve);
+  });
+}
+
+// Load setting from local storage (not synced)
+async function loadLocalSetting(key, defaultValue = true) {
+  return new Promise((resolve) => {
+    chrome.storage.local.get([key], (result) => {
+      resolve(result[key] !== undefined ? result[key] : defaultValue);
+    });
+  });
+}
+
+// Save setting to local storage (not synced)
+async function saveLocalSetting(key, value) {
+  return new Promise((resolve) => {
+    chrome.storage.local.set({ [key]: value }, resolve);
   });
 }
 

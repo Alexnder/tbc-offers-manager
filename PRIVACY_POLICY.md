@@ -1,6 +1,6 @@
 # Privacy Policy for TBC Offers Manager
 
-**Last Updated: December 27, 2025**
+**Last Updated: December 28, 2025**
 
 ## Overview
 
@@ -17,13 +17,32 @@ The extension stores only the following information **locally on your device**:
 - **Hidden Offer URLs**: A list of normalized offer identifiers that you have chosen to hide (e.g., `/xyz/offer-name`)
   - URLs are normalized to work across different languages (en, ka, etc.) and page variations
   - Only the unique offer identifier is stored, not the full URL path
+  - Stored using Chrome Sync storage (syncs across your devices if Chrome Sync is enabled)
+
+- **Hidden Categories**: Categories you've chosen to hide (e.g., "For Students", "For Youth", "Concept")
+  - Stored using Chrome Sync storage (syncs across your devices if Chrome Sync is enabled)
+
+- **UI Preferences**: Settings like auto-load button visibility
+  - Stored locally per device (does not sync across devices)
+  - Each device can have its own preferences
 
 ### Where Data is Stored
 
-All data is stored using Chrome's built-in storage API (`chrome.storage.sync`), which means:
+All data is stored using Chrome's built-in storage APIs:
 
+**Chrome Sync Storage (`chrome.storage.sync`):**
+- Stores your hidden offers and categories
 - Data is stored locally in your browser
-- If Chrome Sync is enabled in your browser settings, this data may sync across your Chrome browsers where you're signed in
+- If Chrome Sync is enabled in your browser settings, this data syncs across your Chrome browsers where you're signed in
+- Limited to approximately 100KB total storage
+- We have no access to this data
+- The data never leaves your control
+
+**Chrome Local Storage (`chrome.storage.local`):**
+- Stores UI preferences (like auto-load button visibility)
+- Data is stored only on the current device
+- Does not sync across devices
+- Up to 10MB+ storage available
 - We have no access to this data
 - The data never leaves your control
 
@@ -73,10 +92,11 @@ The extension:
 
 You can:
 
-- **View your data**: Open the extension's options page to see all hidden offers
-- **Export your data**: Download your hidden offers list as a JSON file
-- **Delete your data**: Use the "Clear All Hidden Offers" button in the options page
-- **Uninstall**: Removing the extension will delete all stored data
+- **View your data**: Open the extension's options page to see all hidden offers and categories
+- **Export your data**: Download your hidden offers and categories list as a JSON file
+- **Delete your data**: Use the "Clear All Hidden Offers" or "Clear All Hidden Categories" buttons in the options page
+- **Manage preferences**: Toggle UI settings like auto-load button visibility
+- **Uninstall**: Removing the extension will delete all stored data (both sync and local)
 
 ## Data Retention
 
