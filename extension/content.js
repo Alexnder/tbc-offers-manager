@@ -13,6 +13,13 @@ async function init() {
   observeOffers();
   processExistingOffers();
   observeUrlChanges();
+
+  // Periodically check for ended offers
+  setInterval(() => {
+    if (isOffersPage()) {
+      recheckOffersForEndedStatus();
+    }
+  }, 10000);
 }
 
 // Load hidden offers from storage (chunked)
@@ -385,8 +392,6 @@ function observeOffers() {
     // Check if we need to show/hide the auto-load button
     if (offersAdded) {
       updateAutoLoadButtonVisibility();
-      // Re-check offers after a short delay to catch late-loaded "Ended" status
-      setTimeout(recheckOffersForEndedStatus, 500);
     }
   });
 
